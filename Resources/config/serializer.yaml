@@ -1,0 +1,54 @@
+services:
+  # Builder
+  Bdf\Serializer\SerializerBuilder:
+    public: true
+    class: 'Bdf\Serializer\SerializerBuilder'
+
+  # Serializer
+  bdf_serializer:
+    alias: 'Bdf\Serializer\SerializerInterface'
+    public: true
+
+  Bdf\Serializer\SerializerInterface:
+    public: true
+    class: 'Bdf\Serializer\Serializer'
+    arguments: ['@bdf_serializer.normalizer.loader']
+
+  # Normalizers
+  bdf_serializer.normalizer.loader:
+    class: 'Bdf\Serializer\Normalizer\NormalizerLoader'
+    arguments:
+      - []
+
+  bdf_serializer.normalizer.datetime:
+    class: 'Bdf\Serializer\Normalizer\DateTimeNormalizer'
+    tags:
+      - {name: 'bdf_serializer.normalizer', priority: -800}
+
+  bdf_serializer.normalizer.traversable:
+    class: 'Bdf\Serializer\Normalizer\TraversableNormalizer'
+    tags:
+      - {name: 'bdf_serializer.normalizer', priority: -900}
+
+  bdf_serializer.normalizer.property:
+    class: 'Bdf\Serializer\Normalizer\PropertyNormalizer'
+    arguments: ['@bdf_serializer.metadata_factory']
+    tags:
+      - {name: 'bdf_serializer.normalizer', priority: -1000}
+
+  # Metadata
+  bdf_serializer.metadata_factory:
+    class: 'Bdf\Serializer\Metadata\MetadataFactory'
+    arguments:
+      - []
+      - null
+
+  bdf_serializer.metadata.loader.static_method:
+    class: 'Bdf\Serializer\Metadata\Driver\StaticMethodDriver'
+    tags:
+      - {name: 'bdf_serializer.loader'}
+
+  bdf_serializer.metadata.loader.annotation:
+    class: 'Bdf\Serializer\Metadata\Driver\AnnotationsDriver'
+    tags:
+      - {name: 'bdf_serializer.loader', priority: -1000}
