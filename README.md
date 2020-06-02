@@ -1,3 +1,9 @@
+
+[![Build Status](https://travis-ci.org/b2pweb/bdf-serializer-bundle.svg?branch=master)](https://travis-ci.org/b2pweb/bdf-serializer-bundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/b2pweb/bdf-serializer-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/b2pweb/bdf-serializer-bundle/?branch=master)
+[![Packagist Version](https://img.shields.io/packagist/v/b2pweb/bdf-serializer-bundle.svg)](https://packagist.org/packages/b2pweb/bdf-serializer-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/b2pweb/bdf-serializer-bundle.svg)](https://packagist.org/packages/b2pweb/bdf-serializer-bundle)
+
 Installation
 ============
 
