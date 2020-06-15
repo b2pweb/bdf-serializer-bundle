@@ -28,6 +28,10 @@
             "/Tests/"
         ]
     },
+    "scripts": {
+        "tests": "phpunit",
+        "tests-with-coverage": "phpunit --coverage-clover coverage.xml"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.x-dev"
