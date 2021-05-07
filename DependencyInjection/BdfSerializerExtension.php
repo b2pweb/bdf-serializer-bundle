@@ -4,7 +4,6 @@ namespace Bdf\SerializerBundle\DependencyInjection;
 
 use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -15,8 +14,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class BdfSerializerExtension extends Extension
 {
-    use PriorityTaggedServiceTrait;
-
     /**
      * {@inheritDoc}
      */
@@ -48,12 +45,13 @@ class BdfSerializerExtension extends Extension
     }
 
     /**
+     * @param string $namespace
      * @param array $config
      * @param ContainerBuilder $container
      *
      * @return null|Reference
      */
-    private function createCacheReference(string $namespace, array $config, ContainerBuilder $container)
+    private function createCacheReference(string $namespace, array $config, ContainerBuilder $container): ?Reference
     {
         if (isset($config['service'])) {
             return new Reference($config['service']);

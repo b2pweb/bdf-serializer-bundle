@@ -1,6 +1,6 @@
 <?php
 
-namespace Bdf\SerializerBundle\Tests\DependencyInjection;
+namespace Bdf\SerializerBundle\Tests;
 
 use Bdf\SerializerBundle\BdfSerializerBundle;
 use Bdf\SerializerBundle\DependencyInjection\Compiler\SerializerLoaderPass;

@@ -1,6 +1,6 @@
 <?php
 
-namespace DependencyInjection\Compiler;
+namespace Bdf\SerializerBundle\Tests\DependencyInjection\Compiler;
 
 use Bdf\SerializerBundle\DependencyInjection\Compiler\SerializerNormalizerPass;
 use PHPUnit\Framework\TestCase;

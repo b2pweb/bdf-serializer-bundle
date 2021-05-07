@@ -17,10 +17,10 @@ class SerializerLoaderPass implements CompilerPassInterface
     private $service;
     private $loaderTag;
 
-    public function __construct(string $service = 'bdf_serializer.metadata_factory', string $normalizerTag = 'bdf_serializer.loader')
+    public function __construct(string $service = 'bdf_serializer.metadata_factory', string $loaderTag = 'bdf_serializer.loader')
     {
         $this->service = $service;
-        $this->loaderTag = $normalizerTag;
+        $this->loaderTag = $loaderTag;
     }
 
     public function process(ContainerBuilder $container)
