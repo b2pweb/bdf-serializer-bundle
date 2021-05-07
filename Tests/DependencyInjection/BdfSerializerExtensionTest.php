@@ -4,6 +4,8 @@ namespace Bdf\SerializerBundle\Tests\DependencyInjection;
 
 use Bdf\Serializer\SerializerInterface;
 use Bdf\SerializerBundle\DependencyInjection\BdfSerializerExtension;
+use Bdf\SerializerBundle\DependencyInjection\Compiler\SerializerLoaderPass;
+use Bdf\SerializerBundle\DependencyInjection\Compiler\SerializerNormalizerPass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Config\FileLocator;
@@ -35,7 +37,7 @@ class BdfSerializerExtensionTest extends TestCase
     public function test_normalizers()
     {
         $container = $this->createContainerFromFile('default', [], false);
-        $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass()]);
+        $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass(), new SerializerNormalizerPass()]);
         $container->compile();
 
         $definition = $container->getDefinition('bdf_serializer.normalizer.loader');
@@ -53,7 +55,7 @@ class BdfSerializerExtensionTest extends TestCase
     public function test_loaders()
     {
         $container = $this->createContainerFromFile('default', [], false);
-        $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass()]);
+        $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass(), new SerializerLoaderPass()]);
         $container->compile();
 
         $definition = $container->getDefinition('bdf_serializer.metadata_factory');

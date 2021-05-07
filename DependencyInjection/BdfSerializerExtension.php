@@ -6,7 +6,6 @@ use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -29,37 +28,7 @@ class BdfSerializerExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('serializer.yaml');
 
-        $this->configureNormalizers($config, $container);
-        $this->configureLoaders($config, $container);
         $this->configureCache($config, $container);
-    }
-
-    /**
-     * @param array $config
-     * @param ContainerBuilder $container
-     */
-    public function configureNormalizers(array $config, ContainerBuilder $container)
-    {
-        if (!$normalizers = $this->findAndSortTaggedServices('bdf_serializer.normalizer', $container)) {
-            throw new RuntimeException('You must tag at least one service as "bdf_serializer.normalizer" to use the "bdf_serializer" service.');
-        }
-
-        $serializerDefinition = $container->getDefinition('bdf_serializer.normalizer.loader');
-        $serializerDefinition->replaceArgument(0, $normalizers);
-    }
-
-    /**
-     * @param array $config
-     * @param ContainerBuilder $container
-     */
-    public function configureLoaders(array $config, ContainerBuilder $container)
-    {
-        if (!$loaders = $this->findAndSortTaggedServices('bdf_serializer.loader', $container)) {
-            throw new RuntimeException('You must tag at least one service as "bdf_serializer.loader" to use the "bdf_serializer" service.');
-        }
-
-        $serializerDefinition = $container->getDefinition('bdf_serializer.metadata_factory');
-        $serializerDefinition->replaceArgument(0, $loaders);
     }
 
     /**
