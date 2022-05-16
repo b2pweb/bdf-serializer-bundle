@@ -60,7 +60,6 @@ class BdfSerializerExtension extends Extension
         if (isset($config['pool'])) {
             $definition = $container->register($namespace, Psr16Cache::class);
             $definition->addArgument(new Reference($config['pool']));
-            $definition->setPrivate(true);
 
             return new Reference($namespace);
         }
