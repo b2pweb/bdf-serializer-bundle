@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * BdfSerializerBundleTest
+ * BdfSerializerBundleTest.
  */
 class BdfSerializerBundleTest extends TestCase
 {
-    public function test_default_config()
+    public function testDefaultConfig()
     {
         $builder = new ContainerBuilder();
         $bundle = new BdfSerializerBundle();
@@ -24,7 +24,7 @@ class BdfSerializerBundleTest extends TestCase
 
         foreach ($compilerPasses as $pass) {
             if ($pass instanceof SerializerLoaderPass || $pass instanceof SerializerNormalizerPass) {
-                $found++;
+                ++$found;
             }
         }
 

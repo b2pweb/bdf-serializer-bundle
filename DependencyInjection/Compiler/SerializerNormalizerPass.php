@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
 /**
- * Registers all service tag as normalizer into the serializer
+ * Registers all service tag as normalizer into the serializer.
  */
 class SerializerNormalizerPass implements CompilerPassInterface
 {

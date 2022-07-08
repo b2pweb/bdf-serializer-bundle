@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * SerializerExtension
+ * SerializerExtension.
  */
 class BdfSerializerExtension extends Extension
 {
@@ -22,35 +22,24 @@ class BdfSerializerExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('serializer.yaml');
 
         $this->configureCache($config, $container);
     }
 
-    /**
-     * @param array $config
-     * @param ContainerBuilder $container
-     */
     public function configureCache(array $config, ContainerBuilder $container)
     {
         if (isset($config['cache'])) {
             $ref = $this->createCacheReference('bdf_serializer.cache', $config['cache'], $container);
 
-            if ($ref !== null) {
+            if (null !== $ref) {
                 $serializerDefinition = $container->getDefinition('bdf_serializer.metadata_factory');
                 $serializerDefinition->replaceArgument(1, $ref);
             }
         }
     }
 
-    /**
-     * @param string $namespace
-     * @param array $config
-     * @param ContainerBuilder $container
-     *
-     * @return null|Reference
-     */
     private function createCacheReference(string $namespace, array $config, ContainerBuilder $container): ?Reference
     {
         if (isset($config['service'])) {

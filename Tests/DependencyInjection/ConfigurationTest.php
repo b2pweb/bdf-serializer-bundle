@@ -7,11 +7,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * ConfigurationTest
+ * ConfigurationTest.
  */
 class ConfigurationTest extends TestCase
 {
-    public function test_default_config()
+    public function testDefaultConfig()
     {
         $globalconfig = [
         ];
@@ -22,12 +22,12 @@ class ConfigurationTest extends TestCase
         $this->assertEquals([], $config);
     }
 
-    public function test_cache_pool()
+    public function testCachePool()
     {
         $globalconfig = [
             'cache' => [
-                'pool' => 'ServiceID'
-            ]
+                'pool' => 'ServiceID',
+            ],
         ];
 
         $processor = new Processor();
@@ -36,12 +36,12 @@ class ConfigurationTest extends TestCase
         $this->assertEquals($globalconfig, $config);
     }
 
-    public function test_cache_service()
+    public function testCacheService()
     {
         $globalconfig = [
             'cache' => [
-                'service' => 'ServiceID'
-            ]
+                'service' => 'ServiceID',
+            ],
         ];
 
         $processor = new Processor();
