@@ -16,14 +16,11 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
 
 /**
- * BdfSerializerExtensionTests
+ * BdfSerializerExtensionTests.
  */
 class BdfSerializerExtensionTest extends TestCase
 {
-    /**
-     *
-     */
-    public function test_default_config()
+    public function testDefaultConfig()
     {
         $container = $this->createContainerFromFile('default');
 
@@ -31,10 +28,7 @@ class BdfSerializerExtensionTest extends TestCase
         $this->assertTrue($container->getAlias('bdf_serializer')->isPublic());
     }
 
-    /**
-     *
-     */
-    public function test_normalizers()
+    public function testNormalizers()
     {
         $container = $this->createContainerFromFile('default', [], false);
         $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass(), new SerializerNormalizerPass()]);
@@ -44,15 +38,12 @@ class BdfSerializerExtensionTest extends TestCase
 
         $normalizers = $definition->getArgument(0);
         $this->assertCount(3, $normalizers);
-        $this->assertSame('bdf_serializer.normalizer.datetime', (string)$normalizers[0]);
-        $this->assertSame('bdf_serializer.normalizer.traversable', (string)$normalizers[1]);
-        $this->assertSame('bdf_serializer.normalizer.property', (string)$normalizers[2]);
+        $this->assertSame('bdf_serializer.normalizer.datetime', (string) $normalizers[0]);
+        $this->assertSame('bdf_serializer.normalizer.traversable', (string) $normalizers[1]);
+        $this->assertSame('bdf_serializer.normalizer.property', (string) $normalizers[2]);
     }
 
-    /**
-     *
-     */
-    public function test_loaders()
+    public function testLoaders()
     {
         $container = $this->createContainerFromFile('default', [], false);
         $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass(), new SerializerLoaderPass()]);
@@ -62,15 +53,12 @@ class BdfSerializerExtensionTest extends TestCase
 
         $loaders = $definition->getArgument(0);
         $this->assertCount(2, $loaders);
-        $this->assertSame('bdf_serializer.metadata.loader.static_method', (string)$loaders[0]);
-        $this->assertSame('bdf_serializer.metadata.loader.annotation', (string)$loaders[1]);
+        $this->assertSame('bdf_serializer.metadata.loader.static_method', (string) $loaders[0]);
+        $this->assertSame('bdf_serializer.metadata.loader.annotation', (string) $loaders[1]);
         $this->assertSame(null, $definition->getArgument(1));
     }
 
-    /**
-     *
-     */
-    public function test_service_cache()
+    public function testServiceCache()
     {
         $container = $this->createContainerFromFile('with_cache', [], false);
         $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass()]);
@@ -78,13 +66,10 @@ class BdfSerializerExtensionTest extends TestCase
         $container->compile();
 
         $definition = $container->getDefinition('bdf_serializer.metadata_factory');
-        $this->assertSame('TestCache', (string)$definition->getArgument(1));
+        $this->assertSame('TestCache', (string) $definition->getArgument(1));
     }
 
-    /**
-     *
-     */
-    public function test_pool_cache()
+    public function testPoolCache()
     {
         $container = $this->createContainerFromFile('with_pool_cache', [], false);
         $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new TestCaseAllPublicCompilerPass()]);
@@ -92,14 +77,13 @@ class BdfSerializerExtensionTest extends TestCase
         $container->compile();
 
         $definition = $container->getDefinition('bdf_serializer.metadata_factory');
-        $this->assertSame('bdf_serializer.cache', (string)$definition->getArgument(1));
+        $this->assertSame('bdf_serializer.cache', (string) $definition->getArgument(1));
 
         $definition = $container->getDefinition('bdf_serializer.cache');
-        $this->assertSame('cache.app', (string)$definition->getArgument(0));
+        $this->assertSame('cache.app', (string) $definition->getArgument(0));
     }
 
     /**
-     * @param array $data
      * @return ContainerBuilder
      */
     protected function createContainer(array $data = [])
@@ -110,8 +94,10 @@ class BdfSerializerExtensionTest extends TestCase
     /**
      * @param $file
      * @param array $data
-     * @param bool $compile
+     * @param bool  $compile
+     *
      * @return ContainerBuilder
+     *
      * @throws \Exception
      */
     protected function createContainerFromFile($file, $data = [], $compile = true)
@@ -134,10 +120,10 @@ class BdfSerializerExtensionTest extends TestCase
 
 class TestCaseAllPublicCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container) : void
+    public function process(ContainerBuilder $container): void
     {
         foreach ($container->getDefinitions() as $id => $definition) {
-            if (strpos($id, 'bdf_serializer') === false) {
+            if (false === strpos($id, 'bdf_serializer')) {
                 continue;
             }
 
@@ -145,7 +131,7 @@ class TestCaseAllPublicCompilerPass implements CompilerPassInterface
         }
 
         foreach ($container->getAliases() as $id => $alias) {
-            if (strpos($id, 'bdf_serializer') === false) {
+            if (false === strpos($id, 'bdf_serializer')) {
                 continue;
             }
 
