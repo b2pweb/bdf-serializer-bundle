@@ -92,9 +92,9 @@ class BdfSerializerExtensionTest extends TestCase
     }
 
     /**
-     * @param $file
-     * @param array $data
-     * @param bool  $compile
+     * @param string $file
+     * @param array  $data
+     * @param bool   $compile
      *
      * @return ContainerBuilder
      *
