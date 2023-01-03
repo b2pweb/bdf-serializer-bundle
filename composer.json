@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "~7.1 || ~8.0.0 || ~8.1.0",
+        "php": "~7.1 || ~8.0.0 || ~8.1.0 || ~8.2.0",
         "b2pweb/bdf-serializer": "~1.0",
         "symfony/config": "^5.1|^6.0",
         "symfony/dependency-injection": "^5.1|^6.0",

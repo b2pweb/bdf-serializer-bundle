@@ -3,6 +3,7 @@
 namespace Bdf\SerializerBundle\DependencyInjection;
 
 use Symfony\Component\Cache\Psr16Cache;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -59,7 +60,7 @@ class BdfSerializerExtension extends Extension
     /**
      * {@inheritDoc}
      */
-    public function getConfiguration(array $config, ContainerBuilder $container)
+    public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
         return new Configuration();
     }
