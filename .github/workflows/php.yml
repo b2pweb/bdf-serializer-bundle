@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
+        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
     name: PHP ${{ matrix.php-versions }}
 
     steps:
@@ -36,6 +36,37 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
+
+    - name: Run test suite
+      run: composer run-script tests
+
+  serializer_compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib-versions: ['1.0.0', '1.1.0', '1.2.0']
+    name: Compatibility with b2pweb/bdf-serializer ${{ matrix.lib-versions }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set Timezone
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Europe/Paris"
+
+    - name: Install PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        extensions: json
+        ini-values: date.timezone=Europe/Paris
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Set serializer version
+      run: composer require --dev "b2pweb/bdf-serializer:~${{ matrix.lib-versions }}" -W
 
     - name: Run test suite
       run: composer run-script tests

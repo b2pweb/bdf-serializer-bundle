@@ -15,9 +15,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class BdfSerializerExtension extends Extension
 {
-    /**
-     * {@inheritDoc}
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = $this->getConfiguration($configs, $container);
@@ -25,6 +22,9 @@ class BdfSerializerExtension extends Extension
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('serializer.yaml');
+
+        $container->setParameter('bdf_serializer.normalization_options', $config['normalization_options'] ?? null);
+        $container->setParameter('bdf_serializer.denormalization_options', $config['denormalization_options'] ?? null);
 
         $this->configureCache($config, $container);
     }
@@ -57,9 +57,6 @@ class BdfSerializerExtension extends Extension
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
         return new Configuration();
