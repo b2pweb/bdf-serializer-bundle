@@ -15,9 +15,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class BdfSerializerExtension extends Extension
 {
-    /**
-     * {@inheritDoc}
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = $this->getConfiguration($configs, $container);
@@ -60,9 +57,6 @@ class BdfSerializerExtension extends Extension
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
         return new Configuration();

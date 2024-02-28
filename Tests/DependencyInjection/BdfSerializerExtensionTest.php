@@ -2,8 +2,6 @@
 
 namespace Bdf\SerializerBundle\Tests\DependencyInjection;
 
-use Bdf\Serializer\Context\DenormalizationContext;
-use Bdf\Serializer\Context\NormalizationContext;
 use Bdf\Serializer\Serializer;
 use Bdf\Serializer\SerializerInterface;
 use Bdf\SerializerBundle\DependencyInjection\BdfSerializerExtension;

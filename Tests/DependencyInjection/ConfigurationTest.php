@@ -60,7 +60,7 @@ class ConfigurationTest extends TestCase
                     'throws_on_accessor_error' => true,
                     'json_options' => 'JSON_BIGINT_AS_STRING',
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals([
@@ -80,7 +80,7 @@ class ConfigurationTest extends TestCase
                         'JSON_OBJECT_AS_ARRAY',
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals([
@@ -94,7 +94,7 @@ class ConfigurationTest extends TestCase
                 'denormalization_options' => [
                     'json_options' => 'JSON_BIGINT_AS_STRING | JSON_INVALID_UTF8_IGNORE',
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals([
@@ -114,7 +114,7 @@ class ConfigurationTest extends TestCase
                     'null' => true,
                     'json_options' => 'JSON_PRETTY_PRINT',
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals([
@@ -134,7 +134,7 @@ class ConfigurationTest extends TestCase
                         'JSON_INVALID_UTF8_IGNORE',
                     ],
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals([
@@ -148,7 +148,7 @@ class ConfigurationTest extends TestCase
                 'normalization_options' => [
                     'json_options' => 'JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_INVALID_UTF8_IGNORE',
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals([

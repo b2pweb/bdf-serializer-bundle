@@ -66,7 +66,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Set serializer version
-      run: composer require --dev "b2pweb/bdf-serializer:~${{ matrix.lib-versions }}"
+      run: composer require --dev "b2pweb/bdf-serializer:~${{ matrix.lib-versions }}" -W
 
     - name: Run test suite
       run: composer run-script tests
