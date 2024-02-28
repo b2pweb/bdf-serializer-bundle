@@ -2,6 +2,9 @@
 
 namespace Bdf\SerializerBundle\Tests\DependencyInjection;
 
+use Bdf\Serializer\Context\DenormalizationContext;
+use Bdf\Serializer\Context\NormalizationContext;
+use Bdf\Serializer\Serializer;
 use Bdf\Serializer\SerializerInterface;
 use Bdf\SerializerBundle\DependencyInjection\BdfSerializerExtension;
 use Bdf\SerializerBundle\DependencyInjection\Compiler\SerializerLoaderPass;
@@ -26,6 +29,8 @@ class BdfSerializerExtensionTest extends TestCase
 
         $this->assertTrue($container->getDefinition(SerializerInterface::class)->isPublic());
         $this->assertTrue($container->getAlias('bdf_serializer')->isPublic());
+        $this->assertNull($container->getParameter('bdf_serializer.normalization_options'));
+        $this->assertNull($container->getParameter('bdf_serializer.denormalization_options'));
     }
 
     public function testNormalizers()
@@ -81,6 +86,45 @@ class BdfSerializerExtensionTest extends TestCase
 
         $definition = $container->getDefinition('bdf_serializer.cache');
         $this->assertSame('cache.app', (string) $definition->getArgument(0));
+    }
+
+    public function testWithOptions()
+    {
+        if (!(new \ReflectionClass(Serializer::class))->hasProperty('defaultDenormalizationOptions')) {
+            $this->markTestSkipped('This test is only for serializer >= 1.2.0');
+        }
+
+        $container = $this->createContainerFromFile('with_options');
+
+        $this->assertEquals([
+            'json_options' => JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_INVALID_UTF8_IGNORE,
+            'null' => true,
+            'include_type' => true,
+        ], $container->getParameter('bdf_serializer.normalization_options'));
+        $this->assertEquals([
+            'dateTimezone' => 'Europe/Paris',
+            'throws_on_accessor_error' => true,
+            'json_options' => JSON_BIGINT_AS_STRING | JSON_INVALID_UTF8_IGNORE,
+        ], $container->getParameter('bdf_serializer.denormalization_options'));
+
+        $serializer = $container->get(SerializerInterface::class);
+
+        $rd = new \ReflectionProperty($serializer, 'defaultDenormalizationOptions');
+        $rn = new \ReflectionProperty($serializer, 'defaultNormalizationOptions');
+        $rd->setAccessible(true);
+        $rn->setAccessible(true);
+
+        $this->assertEquals([
+            'json_options' => JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_INVALID_UTF8_IGNORE,
+            'null' => true,
+            'include_type' => true,
+        ], $rn->getValue($serializer));
+
+        $this->assertEquals([
+            'dateTimezone' => 'Europe/Paris',
+            'throws_on_accessor_error' => true,
+            'json_options' => JSON_BIGINT_AS_STRING | JSON_INVALID_UTF8_IGNORE,
+        ], $rd->getValue($serializer));
     }
 
     /**

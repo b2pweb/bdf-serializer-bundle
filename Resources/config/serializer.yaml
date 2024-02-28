@@ -1,3 +1,7 @@
+parameters:
+  bdf_serializer.normalization_options: null
+  bdf_serializer.denormalization_options: null
+
 services:
   # Builder
   Bdf\Serializer\SerializerBuilder:
@@ -12,7 +16,10 @@ services:
   Bdf\Serializer\SerializerInterface:
     public: true
     class: 'Bdf\Serializer\Serializer'
-    arguments: ['@bdf_serializer.normalizer.loader']
+    arguments:
+      - '@bdf_serializer.normalizer.loader'
+      - '%bdf_serializer.denormalization_options%'
+      - '%bdf_serializer.normalization_options%'
 
   # Normalizers
   bdf_serializer.normalizer.loader:

@@ -26,6 +26,9 @@ class BdfSerializerExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('serializer.yaml');
 
+        $container->setParameter('bdf_serializer.normalization_options', $config['normalization_options'] ?? null);
+        $container->setParameter('bdf_serializer.denormalization_options', $config['denormalization_options'] ?? null);
+
         $this->configureCache($config, $container);
     }
 
