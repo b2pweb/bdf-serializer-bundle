@@ -109,8 +109,8 @@ class BdfSerializerExtensionTest extends TestCase
 
         $rd = new \ReflectionProperty($serializer, 'defaultDenormalizationOptions');
         $rn = new \ReflectionProperty($serializer, 'defaultNormalizationOptions');
-        $rd->setAccessible(true);
-        $rn->setAccessible(true);
+        PHP_VERSION_ID >= 80100 or $rd->setAccessible(true);
+        PHP_VERSION_ID >= 80100 or $rn->setAccessible(true);
 
         $this->assertEquals([
             'json_options' => JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_INVALID_UTF8_IGNORE,
